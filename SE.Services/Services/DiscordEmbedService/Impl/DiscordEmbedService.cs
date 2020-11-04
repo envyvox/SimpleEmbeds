@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using Discord;
+using Discord.Webhook;
 using Discord.WebSocket;
 using SE.Framework.Autofac;
 using SE.Services.Services.DiscordEmbedService.Models;
@@ -29,8 +30,26 @@ namespace SE.Services.Services.DiscordEmbedService.Impl
             await socketMessageChannel.SendMessageAsync("", false, BuildEmbed(embedBuilder));
         }
 
+        public async Task SendWebhookEmbedModel(string webhookUrl, EmbedModel model)
+        {
+            var webhookClient = new DiscordWebhookClient(webhookUrl);
+            await webhookClient.SendMessageAsync(model.PlainText ?? "", false, new[] {BuildEmbedFromEmbedModel(model)});
+        }
+
+        public async Task SendWebhookMessage(string webhookUrl, string message)
+        {
+            var webhookClient = new DiscordWebhookClient(webhookUrl);
+            await webhookClient.SendMessageAsync(message);
+        }
+
         public async Task SendEmbedModel(ISocketMessageChannel channel, EmbedModel model)
         {
+            await channel.SendMessageAsync(model.PlainText ?? "", false, BuildEmbedFromEmbedModel(model));
+        }
+
+        public async Task SendEmbedModel(ulong guildId, ulong channelId, EmbedModel model)
+        {
+            var channel = await _discordGuildService.GetSocketTextChannel(guildId, channelId);
             await channel.SendMessageAsync(model.PlainText ?? "", false, BuildEmbedFromEmbedModel(model));
         }
 

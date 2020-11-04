@@ -20,26 +20,43 @@ namespace SE.Services.Commands
         {
             var embed = new EmbedBuilder()
                 .AddField(ReplyType.HelpWhatPermissionsNeedFieldName.Parse(
-                    EmoteType.List.Display()),
+                    EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
                     ReplyType.HelpWhatPermissionsNeedFieldDesc.Parse())
+                
                 .AddField(ReplyType.HelpHowToSendMessageWithoutEmbedFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpHowToSendMessageWithoutEmbedFieldDesc.Parse())
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToSendMessageWithoutEmbedFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
                 .AddField(ReplyType.HelpHowToSendMessageWithEmbedFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpHowToSendMessageWithEmbedFieldDesc.Parse())
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToSendMessageWithEmbedFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
                 .AddField(ReplyType.HelpHowToModifyMessageWithoutEmbedFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpHowToModifyMessageWithoutEmbedFieldDesc.Parse())
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToModifyMessageWithoutEmbedFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
                 .AddField(ReplyType.HelpHowToModifyMessageWithEmbedFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpHowToModifyMessageWithEmbedFieldDesc.Parse())
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToModifyMessageWithEmbedFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
+                .AddField(ReplyType.HelpHowToSendWebhookMessageFieldName.Parse(
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToSendWebhookMessageFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
                 .AddField(ReplyType.HelpWhereCanIFindMyMessageIdFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpWhereCanIFindMyMessageIdFieldDesc.Parse())
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpWhereCanIFindMyMessageIdFieldDesc.Parse(
+                        EmoteType.PineappleReading.Display()))
+                
                 .AddField(ReplyType.HelpHowToInviteToMyServerFieldName.Parse(
-                        EmoteType.List.Display()),
-                    ReplyType.HelpHowToInviteToMyServerFieldDesc.Parse());
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HelpHowToInviteToMyServerFieldDesc.Parse(
+                        EmoteType.PineappleLove.Display()));
 
             await _discordEmbedService.SendEmbed(Context.User, embed);
             await Task.CompletedTask;

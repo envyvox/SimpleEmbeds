@@ -8,7 +8,7 @@ using SE.Services.Services.DiscordGuildService;
 
 namespace SE.Services.Commands
 {
-    [RequireUserPermission(GuildPermission.ManageMessages)]
+    [RequireContext(ContextType.Guild), RequireUserPermission(GuildPermission.ManageMessages)]
     public class ModifyMessage : ModuleBase<SocketCommandContext>
     {
         private readonly IDiscordEmbedService _discordEmbedService;
@@ -29,6 +29,19 @@ namespace SE.Services.Commands
             else await 
                 (await _discordGuildService.GetIUserMessage(Context.Guild.Id, Context.Channel.Id, messageId))
                     .ModifyAsync(x => x.Content = msg);
+            
+            await Task.CompletedTask;
+        }
+
+        [Command("modify")]
+        public async Task ModifyMessageTask(ulong channelId, ulong messageId, [Remainder] string msg)
+        {
+            if (msg.StartsWith("{"))
+                await _discordEmbedService.ModifyEmbedModel(Context.Guild.Id, channelId, messageId,
+                    JsonConvert.DeserializeObject<EmbedModel>(msg));
+            else await 
+                (await _discordGuildService.GetIUserMessage(Context.Guild.Id, channelId, messageId))
+                .ModifyAsync(x => x.Content = msg);
             
             await Task.CompletedTask;
         }

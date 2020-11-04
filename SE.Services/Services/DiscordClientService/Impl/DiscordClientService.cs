@@ -57,14 +57,13 @@ namespace SE.Services.Services.DiscordClientService.Impl
 
         private static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
         {
-            if (!string.IsNullOrEmpty(result?.ErrorReason))
+            if (result?.Error != CommandError.UnknownCommand && !string.IsNullOrEmpty(result?.ErrorReason))
             {
                 var embed = new EmbedBuilder()
                     .WithColor(new Color(uint.Parse("36393F", NumberStyles.HexNumber)))
                     .AddField(ReplyType.SomethingGoneWrong.Parse(),
                         result.Error switch
                         {
-                            CommandError.UnknownCommand => ReplyType.CommandErrorUnknownCommand.Parse(),
                             CommandError.ParseFailed => ReplyType.CommandErrorParseFailed.Parse(),
                             CommandError.BadArgCount => ReplyType.CommandErrorBadArgCount.Parse(),
                             CommandError.ObjectNotFound => ReplyType.CommandErrorObjectNotFound.Parse(),
@@ -99,12 +98,12 @@ namespace SE.Services.Services.DiscordClientService.Impl
 
             var context = new SocketCommandContext(_socketClient, message);
 
-            await _commands.ExecuteAsync(
+            var result = await _commands.ExecuteAsync(
                 context,
                 argPos,
                 _serviceProvider);
 
-            if (context.Channel.GetType() != typeof(SocketDMChannel))
+            if (result.IsSuccess && context.Channel.GetType() != typeof(SocketDMChannel))
             {
                 await Task.Delay(1000);
                 await message.DeleteAsync();
