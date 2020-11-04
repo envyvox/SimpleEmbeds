@@ -1,0 +1,7 @@
+﻿version: '3.5'
+services:
+  bot:
+    image: registry.kkxo.ru/se
+    build:
+      context: .
+      dockerfile: ./SE/Dockerfile
