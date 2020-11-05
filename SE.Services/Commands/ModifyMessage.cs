@@ -20,7 +20,7 @@ namespace SE.Services.Commands
             _discordGuildService = discordGuildService;
         }
 
-        [Command("modify")]
+        [Command("edit")]
         public async Task ModifyMessageTask(ulong messageId, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
@@ -33,7 +33,7 @@ namespace SE.Services.Commands
             await Task.CompletedTask;
         }
 
-        [Command("modify")]
+        [Command("edit")]
         public async Task ModifyMessageTask(ulong channelId, ulong messageId, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))

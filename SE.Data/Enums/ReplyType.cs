@@ -27,7 +27,9 @@ namespace SE.Data.Enums
         AboutContactsFieldName,
         AboutContactsFieldDesc,
         HelpHowToSendWebhookMessageFieldName,
-        HelpHowToSendWebhookMessageFieldDesc
+        HelpHowToSendWebhookMessageFieldDesc,
+        AboutDonateFieldName,
+        AboutDonateFieldDesc
     }
 
     public static class ReplyTypeHelper
@@ -45,21 +47,23 @@ namespace SE.Data.Enums
                 ReplyType.HelpHowToSendMessageWithoutEmbedFieldDesc => "Just type `-send YOUR_MESSAGE` in the channel you want to send.\n*{0} You can `-send CHANNEL_ID YOUR_MESSAGE` to specify the channel id.*",
                 ReplyType.HelpHowToSendMessageWithEmbedFieldName => "{0} How to send message with embed {1}",
                 ReplyType.HelpHowToSendMessageWithEmbedFieldDesc => "Open [eb.nadeko.bot](https://eb.nadeko.bot/) and fill in the fields you need in the left half of the screen.\nCopy the code from the right side of the screen and paste it after the command `-send YOUR_CODE`.\n*{0} You can `-send CHANNEL_ID YOUR_CODE` to specify the channel id.*",
-                ReplyType.HelpHowToModifyMessageWithoutEmbedFieldName => "{0} How to modify message without embed {1}",
-                ReplyType.HelpHowToModifyMessageWithoutEmbedFieldDesc => "Just type `-modify MESSAGE_ID NEW_MESSAGE` in the channel where you want to modify message.\n*{0} You can `-modify CHANNEL_ID MESSAGE_ID NEW_MESSAGE` to specify the channel id.*",
-                ReplyType.HelpHowToModifyMessageWithEmbedFieldName => "{0} How to modify message with embed {1}",
-                ReplyType.HelpHowToModifyMessageWithEmbedFieldDesc => "Copy a new code from [eb.nadeko.bot](https://eb.nadeko.bot/).\nPaste it in command `-modify MESSAGE_ID NEW_CODE`.\n*{0} You can `-modify CHANNEL_ID MESSAGE_ID NEW_CODE` to specify the channel id.*",
+                ReplyType.HelpHowToModifyMessageWithoutEmbedFieldName => "{0} How to edit message without embed {1}",
+                ReplyType.HelpHowToModifyMessageWithoutEmbedFieldDesc => "Just type `-edit MESSAGE_ID NEW_MESSAGE` in the channel where you want to edit message.\n*{0} You can `-edit CHANNEL_ID MESSAGE_ID NEW_MESSAGE` to specify the channel id.*",
+                ReplyType.HelpHowToModifyMessageWithEmbedFieldName => "{0} How to edit message with embed {1}",
+                ReplyType.HelpHowToModifyMessageWithEmbedFieldDesc => "Copy a new code from [eb.nadeko.bot](https://eb.nadeko.bot/).\nPaste it in command `-edit MESSAGE_ID NEW_CODE`.\n*{0} You can `-edit CHANNEL_ID MESSAGE_ID NEW_CODE` to specify the channel id.*",
                 ReplyType.HelpWhereCanIFindMyMessageIdFieldName => "{0} Where can i find my message ID {1}",
                 ReplyType.HelpWhereCanIFindMyMessageIdFieldDesc => "{0} Read [«Where can I find my User/Server/Message ID?»](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-).",
                 ReplyType.HelpHowToInviteToMyServerFieldName => "{0} How to invite a bot to my server {1}",
                 ReplyType.HelpHowToInviteToMyServerFieldDesc => "{0} Click [here to open the invite link](https://discord.com/oauth2/authorize?client_id=773594420066254899&scope=bot&permissions=519168).",
                 ReplyType.HelpWhatPermissionsNeedFieldName => "{0} What permissions does a user need to use commands {1}",
-                ReplyType.HelpWhatPermissionsNeedFieldDesc => "Commands `-send`, `-send-wh` and `-modify` require «**Manage Messages**» permission.",
-                ReplyType.AboutDesc => "SimpleEmbeds is a simple bot to help you send and modify embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
+                ReplyType.HelpWhatPermissionsNeedFieldDesc => "Commands `-send`, `-send-wh` and `-edit` require «**Manage Messages**» permission.",
+                ReplyType.AboutDesc => "SimpleEmbeds is a simple bot to help you send and edit embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
                 ReplyType.AboutContactsFieldName => "Contacts",
                 ReplyType.AboutContactsFieldDesc => "{0} Discord: kkxo#1722\n{1} Twitter: [@re_kkxo](https://twitter.com/re_kkxo)",
                 ReplyType.HelpHowToSendWebhookMessageFieldName => "{0} How to send message or embed via webhook {1}",
                 ReplyType.HelpHowToSendWebhookMessageFieldDesc => "You can `-send-wh WEBHOOK_URL YOUR_MESSAGE` to send simple message or `-send-wh WEBHOOK_URL YOUR_CODE` to send embed message.\n{0}*Messages or embeds sent via the webhook cannot be edited!*",
+                ReplyType.AboutDonateFieldName => "Support",
+                ReplyType.AboutDonateFieldDesc => "You can support this small but useful bot by sending any amount you like. I will be grateful to you for every penny {0}\n{1} `5375 4141 0460 6651`",
                 _ => throw new ArgumentOutOfRangeException(nameof(replyType), replyType, null)
             };
         }
