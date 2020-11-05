@@ -12,7 +12,8 @@ namespace SE.Data.Enums
         PineappleThinking = 5,
         PineappleReading = 6,
         PineappleLove = 7,
-        PineappleCrying = 10
+        PineappleCrying = 8,
+        Mastercard = 9,
     }
 
     public static class EmoteTypeHelper
@@ -28,7 +29,8 @@ namespace SE.Data.Enums
                 {EmoteType.PineappleThinking, "<:PineappleThinking:773692108933824543>"},
                 {EmoteType.PineappleReading, "<:PineappleReading:773693395050692639>"},
                 {EmoteType.PineappleLove, "<:PineappleLove:773693374922227762>"},
-                {EmoteType.PineappleCrying, "<:PineappleCrying:773693352046362704>"}
+                {EmoteType.PineappleCrying, "<:PineappleCrying:773693352046362704>"},
+                {EmoteType.Mastercard, "<:Mastercard:773706166881878016>"},
             };
 
         public static string Display(this EmoteType emoteType)

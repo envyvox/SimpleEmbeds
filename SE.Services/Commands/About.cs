@@ -23,7 +23,10 @@ namespace SE.Services.Commands
                 .WithDescription(ReplyType.AboutDesc.Parse())
                 .AddField(ReplyType.AboutContactsFieldName.Parse(),
                     ReplyType.AboutContactsFieldDesc.Parse(
-                        EmoteType.DiscordLogo.Display(), EmoteType.TwitterLogo.Display()));
+                        EmoteType.DiscordLogo.Display(), EmoteType.TwitterLogo.Display()))
+                .AddField(ReplyType.AboutDonateFieldName.Parse(),
+                    ReplyType.AboutDonateFieldDesc.Parse(
+                        EmoteType.PineappleLove.Display(), EmoteType.Mastercard.Display()));
 
             await _discordEmbedService.SendEmbed(Context.User, embed);
             await Task.CompletedTask;
