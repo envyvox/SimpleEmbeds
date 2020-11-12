@@ -29,7 +29,9 @@ namespace SE.Data.Enums
         HelpHowToSendWebhookMessageFieldName,
         HelpHowToSendWebhookMessageFieldDesc,
         AboutDonateFieldName,
-        AboutDonateFieldDesc
+        AboutDonateFieldDesc,
+        MessageEmbedNull,
+        MessageWithIdNull,
     }
 
     public static class ReplyTypeHelper
@@ -64,6 +66,8 @@ namespace SE.Data.Enums
                 ReplyType.HelpHowToSendWebhookMessageFieldDesc => "You can `-send-wh WEBHOOK_URL YOUR_MESSAGE` to send simple message or `-send-wh WEBHOOK_URL YOUR_CODE` to send embed message.\n{0}*Messages or embeds sent via the webhook cannot be edited!*",
                 ReplyType.AboutDonateFieldName => "Support",
                 ReplyType.AboutDonateFieldDesc => "You can support this small but useful bot by sending any amount you like. I will be grateful to you for every penny {0}\n{1} `5375 4141 0460 6651`",
+                ReplyType.MessageEmbedNull => "The message does not contain embed.",
+                ReplyType.MessageWithIdNull => "No messages found with this ID.",
                 _ => throw new ArgumentOutOfRangeException(nameof(replyType), replyType, null)
             };
         }

@@ -21,9 +21,15 @@ namespace SE.Services.Commands
         public async Task SendMessageTask([Remainder] string msg)
         {
             if (msg.StartsWith("{"))
+            {
                 await _discordEmbedService.SendEmbedModel(Context.Channel,
                     JsonConvert.DeserializeObject<EmbedModel>(msg));
-            else await ReplyAsync(msg);
+            }
+            else
+            {
+                await ReplyAsync(msg);
+            }
+            
             await Task.CompletedTask;
         }
 
@@ -31,9 +37,15 @@ namespace SE.Services.Commands
         public async Task SendMessageTask(ulong channelId, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
+            {
                 await _discordEmbedService.SendEmbedModel(Context.Guild.Id, channelId,
                     JsonConvert.DeserializeObject<EmbedModel>(msg));
-            else await ReplyAsync(msg);
+            }
+            else
+            {
+                await ReplyAsync(msg);
+            }
+            
             await Task.CompletedTask;
         }
 
@@ -41,9 +53,15 @@ namespace SE.Services.Commands
         public async Task SendWebhookMessageTask(string webhookUrl, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
+            {
                 await _discordEmbedService.SendWebhookEmbedModel(webhookUrl,
                     JsonConvert.DeserializeObject<EmbedModel>(msg));
-            else await _discordEmbedService.SendWebhookMessage(webhookUrl, msg);
+            }
+            else
+            {
+                await _discordEmbedService.SendWebhookMessage(webhookUrl, msg);
+            }
+            
             await Task.CompletedTask;
         }
     }

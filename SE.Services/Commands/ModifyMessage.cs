@@ -24,12 +24,16 @@ namespace SE.Services.Commands
         public async Task ModifyMessageTask(ulong messageId, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
+            {
                 await _discordEmbedService.ModifyEmbedModel(Context.Guild.Id, Context.Channel.Id, messageId,
                     JsonConvert.DeserializeObject<EmbedModel>(msg));
-            else await 
-                (await _discordGuildService.GetIUserMessage(Context.Guild.Id, Context.Channel.Id, messageId))
+            }
+            else
+            {
+                await (await _discordGuildService.GetIUserMessage(Context.Guild.Id, Context.Channel.Id, messageId))
                     .ModifyAsync(x => x.Content = msg);
-            
+            }
+
             await Task.CompletedTask;
         }
 
@@ -37,12 +41,16 @@ namespace SE.Services.Commands
         public async Task ModifyMessageTask(ulong channelId, ulong messageId, [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
+            {
                 await _discordEmbedService.ModifyEmbedModel(Context.Guild.Id, channelId, messageId,
                     JsonConvert.DeserializeObject<EmbedModel>(msg));
-            else await 
-                (await _discordGuildService.GetIUserMessage(Context.Guild.Id, channelId, messageId))
-                .ModifyAsync(x => x.Content = msg);
-            
+            }
+            else
+            {
+                await (await _discordGuildService.GetIUserMessage(Context.Guild.Id, channelId, messageId))
+                    .ModifyAsync(x => x.Content = msg);
+            }
+
             await Task.CompletedTask;
         }
     }
