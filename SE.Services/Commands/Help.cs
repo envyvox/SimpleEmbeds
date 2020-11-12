@@ -48,6 +48,11 @@ namespace SE.Services.Commands
                     ReplyType.HelpHowToSendWebhookMessageFieldDesc.Parse(
                         EmoteType.PineappleThinking.Display()))
                 
+                .AddField(ReplyType.HowToGetCodeFromMessageFieldName.Parse(
+                        EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
+                    ReplyType.HowToGetCodeFromMessageFieldDesc.Parse(
+                        EmoteType.PineappleThinking.Display()))
+                
                 .AddField(ReplyType.HelpWhereCanIFindMyMessageIdFieldName.Parse(
                         EmoteType.List.Display(), EmoteType.PineappleConfused.Display()),
                     ReplyType.HelpWhereCanIFindMyMessageIdFieldDesc.Parse(

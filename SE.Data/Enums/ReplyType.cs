@@ -32,6 +32,8 @@ namespace SE.Data.Enums
         AboutDonateFieldDesc,
         MessageEmbedNull,
         MessageWithIdNull,
+        HowToGetCodeFromMessageFieldName,
+        HowToGetCodeFromMessageFieldDesc
     }
 
     public static class ReplyTypeHelper
@@ -68,6 +70,8 @@ namespace SE.Data.Enums
                 ReplyType.AboutDonateFieldDesc => "You can support this small but useful bot by sending any amount you like. I will be grateful to you for every penny {0}\n{1} `5375 4141 0460 6651`",
                 ReplyType.MessageEmbedNull => "The message does not contain embed.",
                 ReplyType.MessageWithIdNull => "No messages found with this ID.",
+                ReplyType.HowToGetCodeFromMessageFieldName => "{0} How can i get code from message?",
+                ReplyType.HowToGetCodeFromMessageFieldDesc => "Just type `-get MESSAGE_ID` in the channel where you want to get message code.\n*{0} You can `-get CHANNEL_ID MESSAGE_ID` to specify the channel id.*",
                 _ => throw new ArgumentOutOfRangeException(nameof(replyType), replyType, null)
             };
         }
