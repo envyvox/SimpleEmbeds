@@ -78,7 +78,7 @@ namespace SE.Data.Enums
                 "Where can I find my message ID {0}",
 
             ReplyType.HowToInviteBotFieldName =>
-                "How to invite a bot to your server",
+                "How to invite a bot to your server {0}",
 
             ReplyType.WhereGetJsonCodeFieldName =>
                 "Where can I get the required \"json code\" {0}",
