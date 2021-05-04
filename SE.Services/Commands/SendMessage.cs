@@ -4,6 +4,7 @@ using Discord.Commands;
 using Newtonsoft.Json;
 using SE.Services.Services.DiscordEmbedService;
 using SE.Services.Services.DiscordEmbedService.Models;
+using SE.Services.Services.DiscordGuildService;
 
 namespace SE.Services.Commands
 {
@@ -11,10 +12,12 @@ namespace SE.Services.Commands
     public class SendMessage : ModuleBase<SocketCommandContext>
     {
         private readonly IDiscordEmbedService _discordEmbedService;
+        private readonly IDiscordGuildService _discordGuildService;
 
-        public SendMessage(IDiscordEmbedService discordEmbedService)
+        public SendMessage(IDiscordEmbedService discordEmbedService, IDiscordGuildService discordGuildService)
         {
             _discordEmbedService = discordEmbedService;
+            _discordGuildService = discordGuildService;
         }
 
         [Command("send")]
@@ -29,7 +32,7 @@ namespace SE.Services.Commands
             {
                 await ReplyAsync(msg);
             }
-            
+
             await Task.CompletedTask;
         }
 
@@ -43,9 +46,10 @@ namespace SE.Services.Commands
             }
             else
             {
-                await ReplyAsync(msg);
+                var channel = await _discordGuildService.GetSocketTextChannel(Context.Guild.Id, channelId);
+                await channel.SendMessageAsync(msg);
             }
-            
+
             await Task.CompletedTask;
         }
 
@@ -61,7 +65,7 @@ namespace SE.Services.Commands
             {
                 await _discordEmbedService.SendWebhookMessage(webhookUrl, msg);
             }
-            
+
             await Task.CompletedTask;
         }
     }
