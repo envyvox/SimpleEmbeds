@@ -27,7 +27,9 @@ namespace SE.Services.Commands
                         EmoteType.PineappleThinking.Display()),
                     ReplyType.WhereGetJsonCodeFieldDesc.Parse(
                         EmoteType.PineappleReading.Display()) +
-                    $"\n{EmoteType.Blank.Display()}");
+                    $"\n{EmoteType.Blank.Display()}")
+                .WithImageUrl(
+                    "https://cdn.discordapp.com/attachments/817617779503005716/839261516846989352/SE_Demo.gif");
 
             foreach (var module in modules)
             {
