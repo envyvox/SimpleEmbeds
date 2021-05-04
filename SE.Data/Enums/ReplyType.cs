@@ -4,11 +4,11 @@ namespace SE.Data.Enums
 {
     public enum ReplyType
     {
-        SomethingGoneWrong = 0,
-        CommandErrorParseFailed = 2,
-        CommandErrorBadArgCount = 3,
-        CommandErrorObjectNotFound = 4,
-        CommandErrorMultipleMatches = 5,
+        SomethingGoneWrong,
+        CommandErrorParseFailed,
+        CommandErrorBadArgCount,
+        CommandErrorObjectNotFound,
+        CommandErrorMultipleMatches,
         HelpHowToSendMessageWithoutEmbedFieldName,
         HelpHowToSendMessageWithoutEmbedFieldDesc,
         HelpHowToSendMessageWithEmbedFieldName,
@@ -63,7 +63,7 @@ namespace SE.Data.Enums
                 ReplyType.HelpWhatPermissionsNeedFieldDesc => "Commands `-send`, `-send-wh` and `-edit` require «**Manage Messages**» permission.",
                 ReplyType.AboutDesc => "SimpleEmbeds is a simple bot to help you send and edit embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
                 ReplyType.AboutContactsFieldName => "Contacts",
-                ReplyType.AboutContactsFieldDesc => "{0} Discord: kkxo#1722\n{1} Twitter: [@re_kkxo](https://twitter.com/re_kkxo)",
+                ReplyType.AboutContactsFieldDesc => "{0} Discord: kkxo#0001\n{1} Twitter: [@re_kkxo](https://twitter.com/re_kkxo)",
                 ReplyType.HelpHowToSendWebhookMessageFieldName => "{0} How to send message or embed via webhook {1}",
                 ReplyType.HelpHowToSendWebhookMessageFieldDesc => "You can `-send-wh WEBHOOK_URL YOUR_MESSAGE` to send simple message or `-send-wh WEBHOOK_URL YOUR_CODE` to send embed message.\n{0}*Messages or embeds sent via the webhook cannot be edited!*",
                 ReplyType.AboutDonateFieldName => "Support",
@@ -89,7 +89,7 @@ namespace SE.Data.Enums
             }
             catch (FormatException)
             {
-                return "`An error occurred while displaying the response. Please show this to kkxo#1722`";
+                return "`An error occurred while displaying the response. Please show this to kkxo#0001`";
             }
         }
     }
