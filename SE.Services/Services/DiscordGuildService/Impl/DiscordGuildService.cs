@@ -16,12 +16,6 @@ namespace SE.Services.Services.DiscordGuildService.Impl
             _discordClientService = discordClientService;
         }
 
-        public async Task<SocketGuild> GetSocketGuild(ulong guildId)
-        {
-            var socketClient = await _discordClientService.GetSocketClient();
-            return socketClient.GetGuild(guildId);
-        }
-
         public async Task<SocketTextChannel> GetSocketTextChannel(ulong guildId, ulong channelId)
         {
             var guild = await GetSocketGuild(guildId);
@@ -32,6 +26,12 @@ namespace SE.Services.Services.DiscordGuildService.Impl
         {
             var channel = await GetSocketTextChannel(guildId, channelId);
             return (IUserMessage) await channel.GetMessageAsync(messageId);
+        }
+
+        private async Task<SocketGuild> GetSocketGuild(ulong guildId)
+        {
+            var socketClient = await _discordClientService.GetSocketClient();
+            return socketClient.GetGuild(guildId);
         }
     }
 }

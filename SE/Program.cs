@@ -19,7 +19,7 @@ namespace SE
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<Startup>().ConfigureLogging((c,l) =>
+                        .UseStartup<Startup>().ConfigureLogging((c, l) =>
                         {
                             l.ClearProviders();
                             l.AddConfiguration(c.Configuration);

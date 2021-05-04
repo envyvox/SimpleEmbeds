@@ -18,7 +18,7 @@ namespace SE.Services.Services.DiscordClientService.Impl
         private readonly IOptions<DiscordClientOptions> _options;
         private readonly IServiceProvider _serviceProvider;
         private readonly CommandService _commands;
-        
+
         private DiscordSocketClient _socketClient;
 
         public DiscordClientService(IOptions<DiscordClientOptions> options, IServiceProvider serviceProvider,
@@ -32,9 +32,9 @@ namespace SE.Services.Services.DiscordClientService.Impl
                 LogLevel = LogSeverity.Info,
                 MessageCacheSize = 100,
                 AlwaysDownloadUsers = true,
-                GatewayIntents = 
+                GatewayIntents =
                     GatewayIntents.Guilds |
-                    GatewayIntents.GuildMembers | 
+                    GatewayIntents.GuildMembers |
                     GatewayIntents.GuildMessageReactions |
                     GatewayIntents.GuildMessages |
                     GatewayIntents.GuildVoiceStates |
@@ -49,13 +49,14 @@ namespace SE.Services.Services.DiscordClientService.Impl
             await _socketClient.StartAsync();
 
             _commands.CommandExecuted += CommandExecutedAsync;
-            
+
             _socketClient.Log += Log;
             _socketClient.Ready += SocketClientOnReady;
             _socketClient.MessageReceived += SocketClientOnMessageReceived;
         }
 
-        private static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
+        private static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context,
+            IResult result)
         {
             if (result?.Error != CommandError.UnknownCommand && !string.IsNullOrEmpty(result?.ErrorReason))
             {
@@ -78,13 +79,13 @@ namespace SE.Services.Services.DiscordClientService.Impl
                 await context.User.SendMessageAsync("", false, embed.Build());
             }
         }
-        
+
         private static Task Log(LogMessage message)
         {
             Console.WriteLine(message.ToString());
             return Task.CompletedTask;
         }
-        
+
         private async Task SocketClientOnMessageReceived(SocketMessage messageParam)
         {
             if (!(messageParam is SocketUserMessage message)) return;
@@ -110,14 +111,10 @@ namespace SE.Services.Services.DiscordClientService.Impl
             }
         }
 
-        private async Task SocketClientOnReady()
-        {
+        private async Task SocketClientOnReady() =>
             await _socketClient.SetGameAsync("-help -about", null, ActivityType.Watching);
-        }
 
-        public async Task<DiscordSocketClient> GetSocketClient()
-        {
-            return await Task.FromResult(_socketClient);
-        }
+        public async Task<DiscordSocketClient> GetSocketClient() =>
+            await Task.FromResult(_socketClient);
     }
 }

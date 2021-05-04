@@ -38,10 +38,10 @@ namespace SE
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.StartDiscord();
         }
-        
+
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var assembly = typeof(IDiscordClientService).Assembly;

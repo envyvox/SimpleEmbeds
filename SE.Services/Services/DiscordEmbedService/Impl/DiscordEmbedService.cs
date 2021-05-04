@@ -20,15 +20,11 @@ namespace SE.Services.Services.DiscordEmbedService.Impl
             _discordGuildService = discordGuildService;
         }
 
-        public async Task SendEmbed(SocketUser socketUser, EmbedBuilder embedBuilder)
-        {
+        public async Task SendEmbed(SocketUser socketUser, EmbedBuilder embedBuilder) =>
             await socketUser.SendMessageAsync("", false, BuildEmbed(embedBuilder));
-        }
 
-        public async Task SendEmbed(ISocketMessageChannel socketMessageChannel, EmbedBuilder embedBuilder)
-        {
+        public async Task SendEmbed(ISocketMessageChannel socketMessageChannel, EmbedBuilder embedBuilder) =>
             await socketMessageChannel.SendMessageAsync("", false, BuildEmbed(embedBuilder));
-        }
 
         public async Task SendWebhookEmbedModel(string webhookUrl, EmbedModel model)
         {
@@ -42,10 +38,8 @@ namespace SE.Services.Services.DiscordEmbedService.Impl
             await webhookClient.SendMessageAsync(message);
         }
 
-        public async Task SendEmbedModel(ISocketMessageChannel channel, EmbedModel model)
-        {
+        public async Task SendEmbedModel(ISocketMessageChannel channel, EmbedModel model) =>
             await channel.SendMessageAsync(model.PlainText ?? "", false, BuildEmbedFromEmbedModel(model));
-        }
 
         public async Task SendEmbedModel(ulong guildId, ulong channelId, EmbedModel model)
         {
@@ -56,20 +50,18 @@ namespace SE.Services.Services.DiscordEmbedService.Impl
         public async Task ModifyEmbedModel(ulong guildId, ulong channelId, ulong messageId, EmbedModel model)
         {
             var message = await _discordGuildService.GetIUserMessage(guildId, channelId, messageId);
-            
-            if (!string.IsNullOrEmpty(model.PlainText)) 
+
+            if (!string.IsNullOrEmpty(model.PlainText))
                 await message.ModifyAsync(x => x.Content = model.PlainText);
-            
+
             await message.ModifyAsync(x => x.Embed = BuildEmbedFromEmbedModel(model));
         }
-        
-        private static Embed BuildEmbed(EmbedBuilder embedBuilder)
-        {
-            return embedBuilder
+
+        private static Embed BuildEmbed(EmbedBuilder embedBuilder) =>
+            embedBuilder
                 .WithColor(new Color(uint.Parse("36393F", NumberStyles.HexNumber)))
                 .Build();
-        }
-        
+
         private static Embed BuildEmbedFromEmbedModel(EmbedModel model)
         {
             var embed = new EmbedBuilder()
@@ -83,7 +75,7 @@ namespace SE.Services.Services.DiscordEmbedService.Impl
             if (model.Image != null) embed.WithImageUrl(model.Image);
 
             if (model.Fields == null) return embed.Build();
-            
+
             foreach (var field in model.Fields)
                 embed.AddField(field.Name, field.Value, field.Inline);
 

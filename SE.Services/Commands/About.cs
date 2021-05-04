@@ -21,6 +21,9 @@ namespace SE.Services.Commands
             var embed = new EmbedBuilder()
                 .WithThumbnailUrl(Context.Client.CurrentUser.GetAvatarUrl())
                 .WithDescription(ReplyType.AboutDesc.Parse())
+                .AddField(ReplyType.AboutInviteFieldName.Parse(),
+                    ReplyType.InviteFieldDesc.Parse(
+                        EmoteType.PineappleLove.Display()))
                 .AddField(ReplyType.AboutContactsFieldName.Parse(),
                     ReplyType.AboutContactsFieldDesc.Parse(
                         EmoteType.DiscordLogo.Display(), EmoteType.TwitterLogo.Display()))

@@ -17,6 +17,7 @@ using EmbedFooter = SE.Services.Services.DiscordEmbedService.Models.EmbedFooter;
 
 namespace SE.Services.Commands
 {
+    [Summary("How to get json code from messages")]
     public class GetMessage : ModuleBase<SocketCommandContext>
     {
         private readonly IDiscordGuildService _discordGuildService;
@@ -29,7 +30,9 @@ namespace SE.Services.Commands
         }
 
         [Command("get")]
-        public async Task GetMessageTask(ulong messageId)
+        [Summary("Returns the json code of the message.")]
+        public async Task GetMessageTask(
+            [Summary("Message ID")] ulong messageId)
         {
             var message = await _discordGuildService.GetIUserMessage(Context.Guild.Id, Context.Channel.Id, messageId);
 
@@ -44,7 +47,10 @@ namespace SE.Services.Commands
         }
 
         [Command("get")]
-        public async Task GetMessageTask(ulong channelId, ulong messageId)
+        [Summary("Returns the json code of the message.")]
+        public async Task GetMessageTask(
+            [Summary("Channel ID")] ulong channelId,
+            [Summary("Message ID")] ulong messageId)
         {
             var message = await _discordGuildService.GetIUserMessage(Context.Guild.Id, channelId, messageId);
 
@@ -70,24 +76,45 @@ namespace SE.Services.Commands
             {
                 var model = new EmbedModel
                 {
-                    PlainText = message.Content.Length > 0 ? message.Content : null,
+                    PlainText = message.Content.Length > 0
+                        ? message.Content
+                        : null,
+
                     Title = embed.Title,
+
                     Description = embed.Description ?? "",
+
                     Author = embed.Author != null
                         ? new EmbedAuthor {IconUrl = embed.Author?.IconUrl, Name = embed.Author?.Name}
                         : null,
+
                     Color = embed.Color?.RawValue.ToString(),
+
                     Footer = embed.Footer != null
-                        ? new EmbedFooter {IconUrl = embed.Footer?.IconUrl, Text = embed.Footer?.Text}
+                        ? new EmbedFooter
+                        {
+                            IconUrl = embed.Footer?.IconUrl,
+                            Text = embed.Footer?.Text
+                        }
                         : null,
+
                     Thumbnail = embed.Thumbnail?.Url,
+
                     Image = embed.Image?.Url
                 };
 
                 var fields = new EmbedField[] { }.ToList();
-                fields.AddRange(embed.Fields.Select(embedField => new EmbedField
-                    {Inline = embedField.Inline, Name = embedField.Name, Value = embedField.Value}));
-                model.Fields = fields.Count > 0 ? fields.ToArray() : null;
+
+                fields.AddRange(embed.Fields.Select(field => new EmbedField
+                {
+                    Inline = field.Inline,
+                    Name = field.Name,
+                    Value = field.Value
+                }));
+
+                model.Fields = fields.Count > 0
+                    ? fields.ToArray()
+                    : null;
 
                 var json = JsonSerializer.Serialize(model, new JsonSerializerOptions
                 {

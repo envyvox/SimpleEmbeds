@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using Newtonsoft.Json;
 using SE.Services.Services.DiscordEmbedService;
 using SE.Services.Services.DiscordEmbedService.Models;
@@ -8,6 +9,7 @@ using SE.Services.Services.DiscordGuildService;
 
 namespace SE.Services.Commands
 {
+    [Summary("How to send messages")]
     [RequireContext(ContextType.Guild), RequireUserPermission(GuildPermission.ManageMessages)]
     public class SendMessage : ModuleBase<SocketCommandContext>
     {
@@ -21,7 +23,9 @@ namespace SE.Services.Commands
         }
 
         [Command("send")]
-        public async Task SendMessageTask([Remainder] string msg)
+        [Summary("Sends a message to the current channel.")]
+        public async Task SendMessageTask(
+            [Summary("Message or json code")] [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
             {
@@ -37,7 +41,10 @@ namespace SE.Services.Commands
         }
 
         [Command("send")]
-        public async Task SendMessageTask(ulong channelId, [Remainder] string msg)
+        [Summary("Sends a message to the specified channel.")]
+        public async Task SendMessageTask(
+            [Summary("Channel ID")] ulong channelId,
+            [Summary("Message or json code")] [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
             {
@@ -53,8 +60,30 @@ namespace SE.Services.Commands
             await Task.CompletedTask;
         }
 
+        [Command("send")]
+        [Summary("Sends a message to the specified channel.")]
+        public async Task SendMessageTask(
+            [Summary("#Channel")] ITextChannel channel,
+            [Summary("Message or json code")] [Remainder] string msg)
+        {
+            if (msg.StartsWith("{"))
+            {
+                await _discordEmbedService.SendEmbedModel((ISocketMessageChannel) channel,
+                    JsonConvert.DeserializeObject<EmbedModel>(msg));
+            }
+            else
+            {
+                await channel.SendMessageAsync(msg);
+            }
+
+            await Task.CompletedTask;
+        }
+
         [Command("send-wh")]
-        public async Task SendWebhookMessageTask(string webhookUrl, [Remainder] string msg)
+        [Summary("Sends a message using the specified webhook.")]
+        public async Task SendWebhookMessageTask(
+            [Summary("Webhook url")] string webhookUrl,
+            [Summary("Message or json code")] [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
             {

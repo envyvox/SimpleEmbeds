@@ -8,6 +8,7 @@ using SE.Services.Services.DiscordGuildService;
 
 namespace SE.Services.Commands
 {
+    [Summary("How to edit messages")]
     [RequireContext(ContextType.Guild), RequireUserPermission(GuildPermission.ManageMessages)]
     public class ModifyMessage : ModuleBase<SocketCommandContext>
     {
@@ -21,7 +22,10 @@ namespace SE.Services.Commands
         }
 
         [Command("edit")]
-        public async Task ModifyMessageTask(ulong messageId, [Remainder] string msg)
+        [Summary("Edits the specified message.")]
+        public async Task ModifyMessageTask(
+            [Summary("Message ID")] ulong messageId,
+            [Summary("Message or json code")] [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
             {
@@ -38,7 +42,11 @@ namespace SE.Services.Commands
         }
 
         [Command("edit")]
-        public async Task ModifyMessageTask(ulong channelId, ulong messageId, [Remainder] string msg)
+        [Summary("Edits the specified message.")]
+        public async Task ModifyMessageTask(
+            [Summary("Channel ID")] ulong channelId,
+            [Summary("Message ID")] ulong messageId,
+            [Summary("Message or json code")] [Remainder] string msg)
         {
             if (msg.StartsWith("{"))
             {

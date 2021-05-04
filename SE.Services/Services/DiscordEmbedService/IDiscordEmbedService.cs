@@ -9,7 +9,7 @@ namespace SE.Services.Services.DiscordEmbedService
     {
         Task SendEmbed(SocketUser socketUser, EmbedBuilder embedBuilder);
         Task SendEmbed(ISocketMessageChannel socketMessageChannel, EmbedBuilder embedBuilder);
-        
+
         Task SendWebhookEmbedModel(string webhookUrl, EmbedModel model);
         Task SendWebhookMessage(string webhookUrl, string message);
         Task SendEmbedModel(ISocketMessageChannel socketTextChannel, EmbedModel model);
