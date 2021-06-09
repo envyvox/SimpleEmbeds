@@ -108,7 +108,7 @@ namespace SE.Services.Services.DiscordClientService.Impl
         }
 
         private async Task SocketClientOnReady() =>
-            await _socketClient.SetGameAsync("-help -about", null, ActivityType.Watching);
+            await _socketClient.SetGameAsync($"-help -about | {_socketClient.Guilds.Count} servers", null, ActivityType.Watching);
 
         public async Task<DiscordSocketClient> GetSocketClient() =>
             await Task.FromResult(_socketClient);
