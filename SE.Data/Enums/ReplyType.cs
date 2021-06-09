@@ -45,19 +45,19 @@ namespace SE.Data.Enums
                 "Uh, it seems there are several options, I'm not going to decide for you!",
 
             ReplyType.AboutDesc =>
-                "SimpleEmbeds is a simple bot to help you send and edit embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
+                "{0} is a simple bot to help you send and edit embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
 
             ReplyType.AboutContactsFieldName =>
                 "Contacts",
 
             ReplyType.AboutContactsFieldDesc =>
-                "{0} Discord: kkxo#0001\n{1} Twitter: [@evkkxo](https://twitter.com/evkkxo)",
+                "{0} Discord: <@550493599629049858>\n{1} Twitter: [@evkkxo](https://twitter.com/evkkxo)",
 
             ReplyType.AboutDonateFieldName =>
                 "Support",
 
             ReplyType.AboutDonateFieldDesc =>
-                "You can support this small but useful bot by sending any amount you like. I will be grateful to you for every penny {0}\n{1} `5375 4141 0460 6651`",
+                "You can support this small but useful bot by sending any amount you like. I will be grateful to you for every penny {0}\n{1} `5375 4141 0460 6651` EUGENE GARBUZOV",
 
             ReplyType.MessageEmbedNull =>
                 "The message does not contain embed.",

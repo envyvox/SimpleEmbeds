@@ -69,10 +69,6 @@ namespace SE.Services.Services.DiscordClientService.Impl
                             CommandError.BadArgCount => ReplyType.CommandErrorBadArgCount.Parse(),
                             CommandError.ObjectNotFound => ReplyType.CommandErrorObjectNotFound.Parse(),
                             CommandError.MultipleMatches => ReplyType.CommandErrorMultipleMatches.Parse(),
-                            CommandError.UnmetPrecondition => result.ErrorReason,
-                            CommandError.Exception => result.ErrorReason,
-                            CommandError.Unsuccessful => result.ErrorReason,
-                            null => result.ErrorReason,
                             _ => result.ErrorReason
                         });
 
