@@ -106,7 +106,7 @@ namespace SE.Services.Services.DiscordClientService.Impl
         private async Task UpdateClientStatus()
         {
             await _socketClient.SetGameAsync(
-                name: $"..help ..about | {_socketClient.Guilds.Count} servers",
+                name: $"-help -about | {_socketClient.Guilds.Count} servers",
                 streamUrl: null,
                 type: ActivityType.Watching);
         }
