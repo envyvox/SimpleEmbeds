@@ -2,13 +2,8 @@
 
 namespace SE.Data.Enums
 {
-    public enum ReplyType
+    public enum ReplyType : byte
     {
-        SomethingGoneWrong,
-        CommandErrorParseFailed,
-        CommandErrorBadArgCount,
-        CommandErrorObjectNotFound,
-        CommandErrorMultipleMatches,
         AboutDesc,
         AboutContactsFieldName,
         AboutContactsFieldDesc,
@@ -29,21 +24,6 @@ namespace SE.Data.Enums
     {
         private static string Localize(this ReplyType replyType) => replyType switch
         {
-            ReplyType.SomethingGoneWrong =>
-                "Oops, it seems something went wrong...",
-
-            ReplyType.CommandErrorParseFailed =>
-                "After tricky mathematical calculations, I came up with an error. Which one? I don't know, just an error. I think it was your fault!",
-
-            ReplyType.CommandErrorBadArgCount =>
-                "You seem to have incorrectly specified the arguments after the command, maybe you should read the `-help` for the available commands and how to use them correctly?",
-
-            ReplyType.CommandErrorObjectNotFound =>
-                "After complex mathematical calculations, I came to the conclusion that such an object does not exist. What object? I don’t know, you were looking for it ...",
-
-            ReplyType.CommandErrorMultipleMatches =>
-                "Uh, it seems there are several options, I'm not going to decide for you!",
-
             ReplyType.AboutDesc =>
                 "{0} is a simple bot to help you send and edit embed messages using the [eb.nadeko.bot](https://eb.nadeko.bot/) website.\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*",
 

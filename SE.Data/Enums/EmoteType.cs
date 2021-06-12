@@ -2,7 +2,7 @@
 
 namespace SE.Data.Enums
 {
-    public enum EmoteType
+    public enum EmoteType : byte
     {
         Blank = 0,
         List = 1,

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Options;
-using SE.Data.Enums;
 using SE.Framework.Autofac;
 using SE.Services.Services.DiscordClientService.Options;
 
@@ -49,31 +47,23 @@ namespace SE.Services.Services.DiscordClientService.Impl
             await _socketClient.StartAsync();
 
             _commands.CommandExecuted += CommandExecutedAsync;
-
             _socketClient.Log += Log;
             _socketClient.Ready += SocketClientOnReady;
             _socketClient.MessageReceived += SocketClientOnMessageReceived;
+            _socketClient.JoinedGuild += SocketClientOnJoinedGuild;
+            _socketClient.LeftGuild += SocketClientOnLeftGuild;
+        }
+
+        public async Task<DiscordSocketClient> GetSocketClient()
+        {
+            return await Task.FromResult(_socketClient);
         }
 
         private static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context,
             IResult result)
         {
-            if (result?.Error != CommandError.UnknownCommand && !string.IsNullOrEmpty(result?.ErrorReason))
-            {
-                var embed = new EmbedBuilder()
-                    .WithColor(new Color(uint.Parse("36393F", NumberStyles.HexNumber)))
-                    .AddField(ReplyType.SomethingGoneWrong.Parse(),
-                        result.Error switch
-                        {
-                            CommandError.ParseFailed => ReplyType.CommandErrorParseFailed.Parse(),
-                            CommandError.BadArgCount => ReplyType.CommandErrorBadArgCount.Parse(),
-                            CommandError.ObjectNotFound => ReplyType.CommandErrorObjectNotFound.Parse(),
-                            CommandError.MultipleMatches => ReplyType.CommandErrorMultipleMatches.Parse(),
-                            _ => result.ErrorReason
-                        });
-
-                await context.User.SendMessageAsync("", false, embed.Build());
-            }
+            if (!string.IsNullOrEmpty(result?.ErrorReason) && result.Error is not CommandError.UnknownCommand)
+                await context.Channel.SendMessageAsync($"{context.User.Mention}, {result.ErrorReason}");
         }
 
         private static Task Log(LogMessage message)
@@ -84,7 +74,7 @@ namespace SE.Services.Services.DiscordClientService.Impl
 
         private async Task SocketClientOnMessageReceived(SocketMessage messageParam)
         {
-            if (!(messageParam is SocketUserMessage message)) return;
+            if (messageParam is not SocketUserMessage message) return;
 
             var argPos = 0;
 
@@ -100,17 +90,25 @@ namespace SE.Services.Services.DiscordClientService.Impl
                 argPos,
                 _serviceProvider);
 
-            if (result.IsSuccess && context.Channel.GetType() != typeof(SocketDMChannel))
+            if (result.IsSuccess && context.Channel is SocketGuildChannel)
             {
                 await Task.Delay(1000);
                 await message.DeleteAsync();
             }
         }
 
-        private async Task SocketClientOnReady() =>
-            await _socketClient.SetGameAsync($"-help -about | {_socketClient.Guilds.Count} servers", null, ActivityType.Watching);
+        private async Task SocketClientOnReady() => await UpdateClientStatus();
 
-        public async Task<DiscordSocketClient> GetSocketClient() =>
-            await Task.FromResult(_socketClient);
+        private async Task SocketClientOnJoinedGuild(SocketGuild socketGuild) => await UpdateClientStatus();
+
+        private async Task SocketClientOnLeftGuild(SocketGuild socketGuild) => await UpdateClientStatus();
+
+        private async Task UpdateClientStatus()
+        {
+            await _socketClient.SetGameAsync(
+                name: $"..help ..about | {_socketClient.Guilds.Count} servers",
+                streamUrl: null,
+                type: ActivityType.Watching);
+        }
     }
 }
