@@ -1,4 +1,4 @@
-﻿namespace SE.Services.Services.DiscordClientService.Options
+﻿namespace SE.Services.Client
 {
     public class DiscordClientOptions
     {

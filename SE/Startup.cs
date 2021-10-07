@@ -1,15 +1,12 @@
-using System.Reflection;
-using Autofac;
 using Discord.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SE.Framework.Autofac;
-using SE.Services.Services.DiscordClientService;
-using SE.Services.Services.DiscordClientService.Impl;
-using SE.Services.Services.DiscordClientService.Options;
+using SE.Services.Client;
+using SE.Services.Extensions;
 
 namespace SE
 {
@@ -27,7 +24,8 @@ namespace SE
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DiscordClientOptions>(x => _configuration.GetSection("Discord").Bind(x));
-            services.AddSingleton<CommandService>();
+
+            services.AddMediatR(typeof(IDiscordClientService).Assembly);
             services.AddSingleton<IDiscordClientService, DiscordClientService>();
         }
 
@@ -40,22 +38,6 @@ namespace SE
             }
 
             app.StartDiscord();
-        }
-
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            var assembly = typeof(IDiscordClientService).Assembly;
-            builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsDefined(typeof(InjectableServiceAttribute), false) &&
-                            x.GetCustomAttribute<InjectableServiceAttribute>().IsSingletone)
-                .As(x => x.GetInterfaces()[0])
-                .SingleInstance();
-
-            builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsDefined(typeof(InjectableServiceAttribute), false) &&
-                            !x.GetCustomAttribute<InjectableServiceAttribute>().IsSingletone)
-                .As(x => x.GetInterfaces()[0])
-                .InstancePerLifetimeScope();
         }
     }
 }

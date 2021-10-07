@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using SE.Services.Client;
 
-namespace SE.Services.Services.DiscordClientService.Impl
+namespace SE.Services.Extensions
 {
     public static class DiscordExtensions
     {

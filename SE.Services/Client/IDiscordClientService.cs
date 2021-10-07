@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Discord.WebSocket;
 
-namespace SE.Services.Services.DiscordClientService
+namespace SE.Services.Client
 {
     public interface IDiscordClientService
     {

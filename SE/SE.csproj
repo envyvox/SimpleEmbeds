@@ -6,12 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Autofac" Version="6.2.0" />
-      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+      <ProjectReference Include="..\SE.Services\SE.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SE.Services\SE.Services.csproj" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     </ItemGroup>
 
 </Project>
