@@ -29,12 +29,13 @@ namespace SE.Services.SlashCommands
                 .WithThumbnailUrl(client.CurrentUser.GetAvatarUrl())
                 .WithDescription(
                     $"{client.CurrentUser.Mention} is a simple bot to help you send and edit embed messages using the " +
-                    "[eb.nadeko.bot](https://eb.nadeko.bot/) website." +
-                    "\n*All rights to [eb.nadeko.bot](https://eb.nadeko.bot/) belong to the developers of nadeko.*")
+                    "[web builder](https://envyvox.github.io/se-builder/).")
                 .AddField("Join support server",
                     $"{EmoteType.PineappleLove.Display()} [Click here to join]({SupportServerInviteLink}).")
                 .AddField("Invite a bot to your server",
                     $"{EmoteType.PineappleLove.Display()} [Click here to open the invite link]({BotInviteLink}).")
+                .AddField("Vote for bot on top.gg",
+                    $"{EmoteType.PineappleLove.Display()} [Click here to vote]({VoteLink}).")
                 .AddField("Contacts",
                     $"{EmoteType.DiscordLogo.Display()} Discord: <@550493599629049858>" +
                     $"\n{EmoteType.TwitterLogo.Display()} Twitter: [@envyvox](https://twitter.com/envyvox)")

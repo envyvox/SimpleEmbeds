@@ -73,6 +73,7 @@ namespace SE.Services.Client
                             "help" => await _mediator.Send(new HelpCommand(command)),
                             "get" => await _mediator.Send(new GetMessageCommand(command, InteractionType.SlashCommand)),
                             "send" => await _mediator.Send(new SendMessageCommand(command)),
+                            "modify" => await _mediator.Send(new ModifyMessageCommand(command)),
                             _ => throw new ArgumentOutOfRangeException()
                         };
 
@@ -142,7 +143,7 @@ namespace SE.Services.Client
                                 .WithType(ApplicationCommandOptionType.String)
                                 .WithRequired(true)
                                 .WithName("json-code")
-                                .WithDescription("Generated json code from eb.nadeko.bot")))
+                                .WithDescription("Generated json code from envyvox.github.io/se-builder")))
                         .AddOption(new SlashCommandOptionBuilder()
                             .WithType(ApplicationCommandOptionType.SubCommand)
                             .WithName("from-builder")
@@ -162,7 +163,7 @@ namespace SE.Services.Client
                                 .WithType(ApplicationCommandOptionType.String)
                                 .WithRequired(false)
                                 .WithName("color")
-                                .WithDescription("HEX color"))
+                                .WithDescription("Embed color (HEX)"))
                             .AddOption(new SlashCommandOptionBuilder()
                                 .WithType(ApplicationCommandOptionType.String)
                                 .WithRequired(false)
@@ -224,7 +225,7 @@ namespace SE.Services.Client
                                 .WithType(ApplicationCommandOptionType.String)
                                 .WithRequired(true)
                                 .WithName("json-code")
-                                .WithDescription("Generated json code from eb.nadeko.bot"))))
+                                .WithDescription("Generated json code from envyvox.github.io/se-builder"))))
                     .Build(),
 
                 new SlashCommandBuilder()
@@ -244,7 +245,7 @@ namespace SE.Services.Client
 
                 new SlashCommandBuilder()
                     .WithName("modify")
-                    .WithDescription("Modify a mesage")
+                    .WithDescription("Modify a message")
                     .AddOption(new SlashCommandOptionBuilder()
                         .WithType(ApplicationCommandOptionType.Channel)
                         .WithRequired(true)
@@ -259,7 +260,7 @@ namespace SE.Services.Client
                         .WithType(ApplicationCommandOptionType.String)
                         .WithRequired(true)
                         .WithName("json-code")
-                        .WithDescription("Generated json code from eb.nadeko.bot"))
+                        .WithDescription("Generated json code from envyvox.github.io/se-builder"))
                     .Build(),
 
                 new MessageCommandBuilder()
@@ -276,7 +277,6 @@ namespace SE.Services.Client
                 var json = JsonConvert.SerializeObject(exception.Error, Formatting.Indented);
                 Console.WriteLine(json);
             }
-
 
             await UpdateClientStatus();
         }
@@ -295,7 +295,6 @@ namespace SE.Services.Client
         {
             await _socketClient.SetGameAsync(
                 name: $"/help /about | {_socketClient.Guilds.Count} servers",
-                streamUrl: null,
                 type: ActivityType.Watching);
         }
     }

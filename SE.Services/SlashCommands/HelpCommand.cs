@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Discord;
 using Discord.WebSocket;
 using MediatR;
+using SE.Services.Extensions;
 
 namespace SE.Services.SlashCommands
 {
@@ -9,16 +11,15 @@ namespace SE.Services.SlashCommands
 
     public class HelpCommandHandler : IRequestHandler<HelpCommand>
     {
-        private readonly IMediator _mediator;
-
-        public HelpCommandHandler(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         public async Task<Unit> Handle(HelpCommand request, CancellationToken ct)
         {
-            throw new System.NotImplementedException();
+            var embed = new EmbedBuilder()
+                .WithDefaultColor()
+                .WithDescription(".");
+
+            await request.Command.FollowupAsync(embed: embed.Build());
+
+            return Unit.Value;
         }
     }
 }

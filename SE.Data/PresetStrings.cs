@@ -9,5 +9,6 @@
             "&permissions=519168";
 
         public const string SupportServerInviteLink = "https://discord.gg/WZSRpbAGaF";
+        public const string VoteLink = "https://top.gg/bot/773594420066254899/vote";
     }
 }
