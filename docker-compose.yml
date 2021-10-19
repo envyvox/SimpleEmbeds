@@ -1,7 +1,7 @@
 ﻿version: '3.5'
 services:
   bot:
-    image: registry.kkxo.ru/se
+    image: registry.envyvox.app/se
     build:
       context: .
       dockerfile: ./SE/Dockerfile
